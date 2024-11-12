@@ -1,21 +1,4 @@
-agents:
-  - name: Librarian
-    description: The librarian is an expert agent that manages the file system
-    model: llama3.1
-    provider: ollama
-    system_prompt: |-
-      foo
-    supported_tools:
-      [
-        "git_add",
-        "git_checkout",
-        "git_clone",
-        "git_commit",
-        "git_create_branch",
-        "git_pull",
-        "git_push",
-        "git_status",
-      ]
+agents: []
 tools:
   - name: git_add
     description: Add file contents to the index
