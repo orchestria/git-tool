@@ -1,0 +1,142 @@
+agents:
+  - name: Librarian
+    description: The librarian is an expert agent that manages the file system
+    model: llama3.1
+    provider: ollama
+    system_prompt: |-
+      foo
+    supported_tools:
+      [
+        "git_add",
+        "git_checkout",
+        "git_clone",
+        "git_commit",
+        "git_create_branch",
+        "git_pull",
+        "git_push",
+        "git_status",
+      ]
+tools:
+  - name: git_add
+    description: Add file contents to the index
+    language: python
+    entrypoint: git_add.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        paths:
+          description: Files to add content from
+          type: array
+          items:
+            type: string
+      required:
+        - working_dir
+  - name: git_checkout
+    description: Switch branches or commit
+    language: python
+    entrypoint: git_checkout.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        target:
+          description: Branch or commit hash to checkout
+          type: string
+      required:
+        - working_dir
+        - target
+  - name: git_clone
+    description: Clone a repository into a new directory
+    language: python
+    entrypoint: git_clone.py
+    inputs_schema:
+      type: object
+      properties:
+        repository:
+          description: The remote repository to clone
+          type: string
+        target_dir:
+          description: The name of a new directory to clone into
+          type: string
+      required:
+        - repository
+        - target_dir
+  - name: git_commit
+    description: Create a new commit containing the current contents of the index
+    language: python
+    entrypoint: git_commit.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        message:
+          description: Summary of the changes being committed
+          type: string
+      required:
+        - working_dir
+        - message
+  - name: git_create_branch
+    description: Create a new branch
+    language: python
+    entrypoint: git_create_branch.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        branch_name:
+          description: Name of the branch
+          type: string
+      required:
+        - working_dir
+        - branch_name
+  - name: git_pull
+    description: Fetch from and integrate with another repository or a local branch
+    language: python
+    entrypoint: git_pull.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        remote:
+          description: Remote to pull from, use default remote if not specified
+          type: string
+      required:
+        - working_dir
+  - name: git_push
+    description: Update remote refs along with associated objects
+    language: python
+    entrypoint: git_push.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+        remote:
+          description: Remote to push to, use default remote if not specified
+          type: string
+      required:
+        - working_dir
+  - name: git_status
+    description: Show the working tree status
+    language: python
+    entrypoint: git_status.py
+    inputs_schema:
+      type: object
+      properties:
+        working_dir:
+          description: Local git repo path
+          type: string
+      required:
+        - working_dir
