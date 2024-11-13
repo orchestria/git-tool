@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 
-def git_clone():
+def run():
     args = sys.argv[-1]
     data = json.loads(args)
 
@@ -33,6 +33,10 @@ def git_clone():
     if res.returncode:
         status["error"] = res.stderr
     else:
-        status["output"] = res.stdout
+        status["status"] = "success"
 
     print(json.dumps(status))
+
+
+if __name__ == "__main__":
+    run()
